@@ -34,7 +34,7 @@ class Game():
     """)
 
   def print_message(self):
-    if self.tie:
+    if self.counter==9 and self.winner==False:
       print("It's a tie!")
 
     if self.winner:
@@ -45,6 +45,12 @@ class Game():
  
   def get_move(self):
     position = input("Enter position: ").lower()
+
+    if self.board[position]!=None:
+      print("choose available place")
+      self.print_board()
+      self.get_move()
+
     if self.board[position]==None:
       self.board[position]=self.turn
       self.counter+=1
@@ -54,10 +60,11 @@ class Game():
         self.turn="o"
       else:
         self.turn="x"
-        
+
       self.print_board()
-      self.print_message()
       self.check_winner()
+      
+     
       
      
 
@@ -73,31 +80,36 @@ class Game():
           self.winner=True
           self.the_winner=self.board['a1']
 
-        elif self.board['b1'] == self.board['b2'] == self.board['b3'] != None:
+        if self.board['b1'] == self.board['b2'] == self.board['b3'] != None:
           self.winner=True
           self.the_winner=self.board['b1']
 
-        elif self.board['c1'] == self.board['c2'] == self.board['c3'] != None:
+        if self.board['c1'] == self.board['c2'] == self.board['c3'] != None:
           self.winner=True
           self.the_winner=self.board['c1']
 
-        elif self.board['a1'] == self.board['c1'] == self.board['b1'] != None:
+        if self.board['a1'] == self.board['c1'] == self.board['b1'] != None:
           self.winner=True
           self.the_winner=self.board['c1'] 
-        elif self.board['a2'] == self.board['c2'] == self.board['b2'] != None:
+        if self.board['a2'] == self.board['c2'] == self.board['b2'] != None:
           self.winner=True
           self.the_winner=self.board['c1'] 
-        elif self.board['a3'] == self.board['c3'] == self.board['b3'] != None:
+        if self.board['a3'] == self.board['c3'] == self.board['b3'] != None:
           self.winner=True
           self.the_winner=self.board['c1'] 
-        elif self.board['a1'] == self.board['b2'] == self.board['c3'] != None:
+        if self.board['a1'] == self.board['b2'] == self.board['c3'] != None:
           self.winner=True
-          self.the_winner=self.board['c1']
-        elif self.board['a3'] == self.board['b2'] == self.board['c1'] != None:
+          self.the_winner=self.board['c3']
+        if self.board['a3'] == self.board['b2'] == self.board['c1'] != None:
           self.winner=True
           self.the_winner=self.board['c1']
         if self.winner==False and self.counter!=9:
+          self.print_message()
           self.get_move()
+     if self.winner==True or self.counter==9:
+      self.print_message()
+          
+        
 
   
 rick = Game()
